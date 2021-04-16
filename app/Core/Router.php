@@ -44,21 +44,30 @@ class Router
 
     function map()
     {
+        $checkRoute = false;
         $requestURL = $this->getRequestURL();
         $requestMethod = $this->getRequestMethod();
 
         $routers = $this->routers;
         foreach ($routers as $router){
             list($method, $url, $action) = $router;
-            if (strpos($method, $requestMethod) !== False ){
+            if (strpos($method, $requestMethod) === False ){
+                continue;
+            }
+            if ($url === '*'){
+                $checkRoute = true;
+            }else{
                 if (strcmp(strtolower($url), strtolower($requestURL)) === 0){
-                    if (is_callable($action)){
-                        $action();
-                        return;
-                    }
+                    $checkRoute = true;
                 }else{
                     continue;
                 }
+            }
+            if ($checkRoute === true){
+                if (is_callable($action)){
+                    $action();
+                }
+                return;
             }else{
                 continue;
             }

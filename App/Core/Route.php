@@ -2,17 +2,18 @@
 
 class Route
 {
-    private $routes;
+    private static $routes = [];
+    private $basePath;
 
-    function __construct()
+    function __construct($basePath)
     {
-        $this->routes = [];
+        $this->basePath = $basePath;
     }
 
     private function getRequestURL()
     {
         $url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
-        $url = str_replace('/public', '', $url);
+        $url = str_replace($this->basePath, '', $url);
         $url = $url === ''  || empty($url) ? '/' : $url;
         return $url;
     }
@@ -23,7 +24,7 @@ class Route
         return $method;
     }
 
-    private function addRouter($method, $url, $action)
+    private static function addRouter($method, $url, $action)
     {
         // kiểm tra xem URL có chứa param không. VD: post/{id}
         if (preg_match_all('/({([a-zA-Z]+)})/', $url, $params)) {
@@ -43,22 +44,22 @@ class Route
         ];
 
         // Thêm route vào router.
-        array_push($this->routes, $route);
+        array_push(self::$routes, $route);
     }
 
-    function get($url, $action)
+    public static function get($url, $action)
     {
-        $this->addRouter('GET', $url, $action);
+        self::addRouter('GET', $url, $action);
     }
 
-    function post($url, $action)
+    public static function post($url, $action)
     {
-        $this->addRouter('POST', $url, $action);
+        self::addRouter('POST', $url, $action);
     }
 
-    function any($url, $action)
+    public static function any($url, $action)
     {
-        $this->addRouter('GET|POST', $url, $action);
+        self::addRouter('GET|POST', $url, $action);
     }
 
     function map()
@@ -66,7 +67,7 @@ class Route
         $requestURL = $this->getRequestURL();
         $requestMethod = $this->getRequestMethod();
 
-        $routes = $this->routes;
+        $routes = self::$routes;
         foreach ($routes as $route){
             if (strpos($route['method'], $requestMethod) !== false) {
 

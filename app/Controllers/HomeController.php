@@ -2,12 +2,20 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . "/../Controllers/Controller.php";
+
 use App\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return "home";
+//        echo 'home controller';
+    }
+
+    public function index($list, $id)
+    {
+        echo 'home index'.$list;
+        echo 'home index'.$id;
     }
 }

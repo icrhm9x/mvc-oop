@@ -92,6 +92,30 @@ class Route
             return;
         }
 
+        // Nếu $action là một phương thức của controller. VD: 'HomeController@index'.
+        if (is_string($action)) {
+            if (count(explode('@', $action)) !== 2) {
+                die('Router error');
+            }
+            $action = explode('@', $action);
+            $className = $action[0];
+            $methodName = $action[1];
+
+            $controllerName = 'App\\Controllers\\' . $className;
+
+            if (class_exists($controllerName)) {
+                $controller = new $controllerName();
+                if (method_exists($controllerName, $methodName)) {
+                    call_user_func_array([$controller, $methodName], $params);
+                }else{
+                    die('Method "' . $methodName . '" in Class "' . $controllerName . '" not found');
+                }
+            }else{
+                die('Class "' . $controllerName . '" not found');
+            }
+
+            return;
+        }
     }
 
     function run()

@@ -105,8 +105,10 @@ class Route
             $controllerName = 'App\\Controllers\\' . $className;
 
             if (class_exists($controllerName)) {
+                \App::setController($className);
                 $controller = new $controllerName();
                 if (method_exists($controllerName, $methodName)) {
+                    \App::setAction($methodName);
                     call_user_func_array([$controller, $methodName], $params);
                 }else{
                     die('Method "' . $methodName . '" in Class "' . $controllerName . '" not found');

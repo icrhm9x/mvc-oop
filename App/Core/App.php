@@ -7,6 +7,8 @@ class App
     private $route;
 
     public static $config;
+    public static $controller;
+    public static $action;
 
     function __construct()
     {
@@ -21,6 +23,22 @@ class App
 
     public static function getConfig() {
         return self::$config;
+    }
+
+    public static function setController($controller) {
+        self::$controller = $controller;
+    }
+
+    public static function getController() {
+        return self::$controller;
+    }
+
+    public static function setAction($action) {
+        self::$action = $action;
+    }
+
+    public static function getAction() {
+        return self::$action;
     }
 
     public function run()

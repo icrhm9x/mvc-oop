@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Controllers\Controller;
+use App\Core\Controller;
 
 class HomeController extends Controller
 {
@@ -13,6 +13,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        echo 'home index';
+        $this->render('index');
+//        $this->redirect('https://www.google.com/');
     }
 }

@@ -1,33 +1,30 @@
 <?php
 
-require_once __DIR__ . "/Router.php";
+require_once __DIR__ . "/Route.php";
 
 class App
 {
-    private $router;
+    private $route;
 
     function __construct()
     {
-        $this->router = new Router();
-        $this->router->get('/', function (){
+        $this->route = new Route();
+        $this->route->get('/', function (){
             echo 'Day la trang home';
         });
-        $this->router->get('/users', function (){
-            echo 'Day la trang users';
+        $this->route->get('/user/{id}/{abc}', function (){
+            echo 'Day la trang user';
         });
-        $this->router->post('/news', function (){
+        $this->route->post('/news', function (){
             echo 'Day la trang news';
         });
-        $this->router->any('/product', function (){
+        $this->route->any('/product', function (){
             echo 'Day la trang product';
-        });
-        $this->router->any('*', function (){
-            echo '404 not found';
         });
     }
 
     function run()
     {
-        $this->router->run();
+        $this->route->run();
     }
 }

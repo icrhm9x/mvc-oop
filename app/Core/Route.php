@@ -73,7 +73,7 @@ class Route
                 // kiểm tra route hiện tại có phải là url đang được gọi.
                 $reg = '/^' . $route['url'] . '$/';
                 if (preg_match($reg, $requestURL, $params)) {
-                    array_shift($params);;
+                    array_shift($params);
                     $this->call_action_route($route['action'], $params);
                     return;
                 }

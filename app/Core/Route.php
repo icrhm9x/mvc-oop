@@ -11,8 +11,9 @@ class Route
 
     private function getRequestURL()
     {
+        $basePath = App::getConfig()['basePath'];
         $url = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
-        $url = str_replace('/public', '', $url);
+        $url = str_replace($basePath, '', $url);
         $url = $url === ''  || empty($url) ? '/' : $url;
         return $url;
     }

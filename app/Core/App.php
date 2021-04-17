@@ -7,6 +7,8 @@ class App
 {
     private $route;
 
+    public static $config;
+
     function __construct()
     {
         $this->route = new Route();
@@ -25,7 +27,15 @@ class App
         });
     }
 
-    function run()
+    public static function setConfig($config) {
+        self::$config = $config;
+    }
+
+    public static function getConfig() {
+        return self::$config;
+    }
+
+    public function run()
     {
         $this->route->run();
     }

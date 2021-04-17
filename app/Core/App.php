@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/Route.php";
+require_once __DIR__ . "/../Controllers/HomeController.php";
 
 class App
 {
@@ -9,11 +10,12 @@ class App
     function __construct()
     {
         $this->route = new Route();
-        $this->route->get('/', function (){
-            echo 'Day la trang home';
-        });
-        $this->route->get('/user/{id}/{abc}', function (){
-            echo 'Day la trang user';
+
+        $this->route->get('/', 'HomeController@index');
+
+        $this->route->get('/user/{id}/{abc}', function ($id, $abc){
+            echo 'Day la trang user'.$id;
+            echo 'Day la trang user'.$abc;
         });
         $this->route->post('/news', function (){
             echo 'Day la trang news';

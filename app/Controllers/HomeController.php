@@ -13,9 +13,8 @@ class HomeController extends Controller
 //        echo 'home controller';
     }
 
-    public function index($list, $id)
+    public function index()
     {
-        echo 'home index'.$list;
-        echo 'home index'.$id;
+        echo 'home index';
     }
 }

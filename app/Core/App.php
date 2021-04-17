@@ -11,7 +11,7 @@ class App
     {
         $this->route = new Route();
 
-        $this->route->get('/', 'HomeControll@er@index');
+        $this->route->get('/', 'HomeController@index');
 
         $this->route->get('/user/{id}/{abc}', function ($id, $abc){
             echo 'Day la trang user'.$id;
